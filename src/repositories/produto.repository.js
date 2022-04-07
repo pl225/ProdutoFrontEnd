@@ -28,4 +28,14 @@ export class ProdutoRepository {
         }
     }
 
+    async excluir(id) {
+        try {
+            const response = await axios
+                .delete(`${URL}produtos/${id}`);
+            return response.data;
+        } catch (err) {
+            throw new Error(err.message);
+        }
+    }
+
 }

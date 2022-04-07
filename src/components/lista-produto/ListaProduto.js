@@ -9,27 +9,42 @@ export class ListaProdutoComponent extends React.Component {
         this.state = {
             error: null,
             isLoaded: false,
-            items: []
+            items: null
         };
 
         this.controller = new ProdutoController();
     }
 
-    componentDidMount() {
-        this.controller
-            .findAll()
-            .then(res => {
-                this.setState({
-                    isLoaded: true,
-                    items: res
-                });
-            })
-            .catch(err => {
-                this.setState({
-                    isLoaded: true,
-                    error: err
-                });
+    async carregarProdutos() {
+        try {
+            const produtos = await this.controller.findAll();
+            this.setState({
+                isLoaded: true,
+                items: produtos
             });
+        } catch (err) {
+            this.setState({
+                isLoaded: true,
+                error: err
+            });
+        }
+    }
+
+    componentDidMount() {
+       this.carregarProdutos();
+    }
+
+    async excluir(id, nome) {
+        const resp = window.confirm(`Deseja realmente excluir o produto ${nome} ?`);
+        if (resp) {
+            try {
+                await this.controller.excluir(id);
+                alert('Produto excluído com sucesso.');
+                this.carregarProdutos();
+            } catch (err) {
+                alert(err)
+            }
+        }
     }
 
     render() {
@@ -51,6 +66,7 @@ export class ListaProdutoComponent extends React.Component {
                                 <th>Código</th>
                                 <th>Valor</th>
                                 <th>Categoria</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,6 +78,14 @@ export class ListaProdutoComponent extends React.Component {
                                             <td>{i.codigo}</td>
                                             <td>{i.valor}</td>
                                             <td>{i.categoria.nome}</td>
+                                            <td>
+                                                <Link to={`persistir/${i.id}`}>
+                                                    <button>Editar</button>
+                                                </Link>
+                                            </td>
+                                            <td>
+                                                <button onClick={() => this.excluir(i.id, i.nome)}>Excluir</button>
+                                            </td>
                                         </tr>
                                     );
                                 }) 

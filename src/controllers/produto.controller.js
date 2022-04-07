@@ -21,4 +21,8 @@ export class ProdutoController {
 
         return await this.produtoRepository.criar(dados);
     }
+
+    async excluir(id) {
+        await this.produtoRepository.excluir(id);
+    }
 }
