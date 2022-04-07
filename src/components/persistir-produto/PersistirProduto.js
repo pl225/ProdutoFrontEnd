@@ -3,6 +3,7 @@ import { ProdutoRepository } from '../../repositories/produto.repository';
 import { CategoriaRepository } from '../../repositories/categoria.repository';
 import { TextoInput } from '../texto-input/TextoInput';
 import { NumeroInput } from '../numero-input/NumeroInput';
+import { SelectInput } from '../select-input/SelectInput';
 
 export class PersistirProdutoComponent extends React.Component {
 
@@ -43,14 +44,13 @@ export class PersistirProdutoComponent extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
+        console.log(event)
     }
 
     handleChange(event, nomeInput) {
-        this.setState({ 
-            form: { 
-                [nomeInput]: event.target.value 
-            } 
-        });
+        const state = this.state;
+        state.form[nomeInput] = event.target.value;
+        this.setState(state);
     }
 
     render() {
@@ -74,18 +74,12 @@ export class PersistirProdutoComponent extends React.Component {
                         value={this.state.form.valor}
                         onChange={(event) => this.handleChange(event, 'valor')}
                     />
-                    <label>
-                        Escolha a categoria:
-                        <select value={this.state.categoria} onChange={this.handleChange}>
-                            {
-                                categorias.map(i => {
-                                    return (
-                                        <option key={i.id} value={i.id}>{i.nome}</option>
-                                    );
-                                })
-                            }
-                        </select>
-                    </label>
+                    <SelectInput
+                        label={'a categoria'}
+                        value={this.state.form.categoria}
+                        items={this.state.categorias}
+                        onChange={(event) => this.handleChange(event, 'categoria')}
+                    />
                     <input type="submit" value="Enviar" />
                 </form>
             );
