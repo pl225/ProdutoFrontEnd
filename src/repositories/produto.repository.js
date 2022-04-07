@@ -16,7 +16,12 @@ export class ProdutoRepository {
     async criar(dados) {
         try {
             const response = await axios
-                .post(`${URL}produtos`, dados);
+                .post(`${URL}produtos`, {
+                    nome: dados.nome,
+                    codigo: dados.codigo,
+                    valor: parseFloat(dados.valor),
+                    categoriaId: dados.categoria
+                });
             return response.data;
         } catch (err) {
             throw new Error(err.message);

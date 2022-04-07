@@ -45,7 +45,9 @@ export class PersistirProdutoComponent extends React.Component {
     async handleSubmit(event) {
         event.preventDefault();
         try {
-            this.produtoController.criar(this.state.form);
+            await this.produtoController.criar(this.state.form);
+            alert('Produto cadastrado com sucesso.');
+            window.location = '/';
         } catch (err) {
             alert(err);
         }

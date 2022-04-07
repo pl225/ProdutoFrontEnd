@@ -9,7 +9,7 @@ export class ProdutoController {
         return this.produtoRepository.findAll();
     }
 
-    criar(dados) {
+    async criar(dados) {
         if (!dados.nome || dados.nome.length === 0) 
             throw new Error('Preencha o campo nome do produto.');
         if (!dados.codigo || dados.codigo.length === 0) 
@@ -19,6 +19,6 @@ export class ProdutoController {
         if (!dados.categoria || dados.categoria <= 0)
             throw new Error('Selecione uma categoria para o produto.');
 
-        this.produtoRepository.criar(dados);
+        return await this.produtoRepository.criar(dados);
     }
 }
