@@ -1,9 +1,9 @@
 import './App.css';
-import { ListaProdutoComponent } from './components/lista-produto/ListaProduto';
+import Routes from "./routes";
 
 function App() {
   return (
-    <ListaProdutoComponent/>
+    <Routes/>
   );
 }
 
