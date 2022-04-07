@@ -1,9 +1,9 @@
 import React from 'react';
-import { ProdutoRepository } from '../../repositories/produto.repository';
-import { CategoriaRepository } from '../../repositories/categoria.repository';
 import { TextoInput } from '../texto-input/TextoInput';
 import { NumeroInput } from '../numero-input/NumeroInput';
 import { SelectInput } from '../select-input/SelectInput';
+import { CategoriaController } from '../../controllers/categoria.controller';
+import { ProdutoController } from '../../controllers/produto.controller';
 
 export class PersistirProdutoComponent extends React.Component {
 
@@ -21,12 +21,12 @@ export class PersistirProdutoComponent extends React.Component {
             }
         };
 
-        this.produtoRepository = new ProdutoRepository();
-        this.categoriaRepository = new CategoriaRepository();
+        this.produtoController = new ProdutoController();
+        this.categoriaController = new CategoriaController();
     }
 
     componentDidMount() {
-        this.categoriaRepository
+        this.categoriaController
             .findAll()
             .then(res => {
                 this.setState({

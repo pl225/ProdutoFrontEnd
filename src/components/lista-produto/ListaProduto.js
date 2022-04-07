@@ -1,6 +1,6 @@
 import React from 'react';
-import { ProdutoRepository } from '../../repositories/produto.repository';
 import { Link } from 'react-router-dom';
+import { ProdutoController } from '../../controllers/produto.controller';
 
 export class ListaProdutoComponent extends React.Component {
 
@@ -12,11 +12,11 @@ export class ListaProdutoComponent extends React.Component {
             items: []
         };
 
-        this.repository = new ProdutoRepository();
+        this.controller = new ProdutoController();
     }
 
     componentDidMount() {
-        this.repository
+        this.controller
             .findAll()
             .then(res => {
                 this.setState({
