@@ -4,7 +4,13 @@ import { URL } from './config';
 export class ProdutoRepository {
 
     async findAll() {
-        return await (await axios.get(`${URL}produtos`)).data;
+        try {
+            const response = await axios
+                .get(`${URL}produtos`);
+            return response.data;
+        } catch (err) {
+            throw new Error(err.message);
+        }
     }
 
 }

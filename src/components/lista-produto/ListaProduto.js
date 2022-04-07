@@ -37,13 +37,18 @@ export class ListaProdutoComponent extends React.Component {
         if (items) {
             return (
                 <div>
-                    <p>Produtos</p>
+                    <div>
+                        <p>Produtos</p>
+                        <button>Cadastrar produto</button>
+                    </div>
                     <table>
                         <thead>
-                            <th>Nome</th>
-                            <th>Código</th>
-                            <th>Valor</th>
-                            <th>Categoria</th>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Código</th>
+                                <th>Valor</th>
+                                <th>Categoria</th>
+                            </tr>
                         </thead>
                         <tbody>
                             { 
