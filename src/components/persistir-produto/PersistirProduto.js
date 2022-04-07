@@ -4,15 +4,16 @@ import { NumeroInput } from '../numero-input/NumeroInput';
 import { SelectInput } from '../select-input/SelectInput';
 import { CategoriaController } from '../../controllers/categoria.controller';
 import { ProdutoController } from '../../controllers/produto.controller';
+import { useParams } from 'react-router-dom';
 
-export class PersistirProdutoComponent extends React.Component {
+class PersistirProduto extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             error: null,
             isLoaded: false,
-            categorias: [],
+            categorias: null,
             form: {
                 nome: '',
                 codigo: '',
@@ -23,30 +24,37 @@ export class PersistirProdutoComponent extends React.Component {
 
         this.produtoController = new ProdutoController();
         this.categoriaController = new CategoriaController();
+        this.id = this.props.params? this.props.params.produtoId : null;
     }
 
-    componentDidMount() {
-        this.categoriaController
-            .findAll()
-            .then(res => {
-                this.setState({
-                    isLoaded: true,
-                    categorias: res
-                });
-            })
-            .catch(err => {
-                this.setState({
-                    isLoaded: true,
-                    error: err
-                });
+    async componentDidMount() {
+        try {
+            const [categorias, produto] = await Promise.all([
+                this.categoriaController.findAll(),
+                this.id ? this.produtoController.findById(this.id) : Promise.resolve(null)
+            ]);
+            this.setState({
+                isLoaded: true,
+                categorias,
+                form: produto ? produto : this.state.form
             });
+        } catch (err) {
+            this.setState({
+                isLoaded: true,
+                error: err
+            });
+        }
     }
 
     async handleSubmit(event) {
         event.preventDefault();
         try {
-            await this.produtoController.criar(this.state.form);
-            alert('Produto cadastrado com sucesso.');
+            if (!this.id) {
+                await this.produtoController.criar(this.state.form);
+            } else {
+                await this.produtoController.editar(this.id, this.state.form);
+            }
+            alert(`Produto ${this.id ? 'editado': 'cadastrado'} com sucesso.`);
             window.location = '/';
         } catch (err) {
             alert(err);
@@ -96,4 +104,12 @@ export class PersistirProdutoComponent extends React.Component {
         }
     }
 
+}
+
+export function PersistirProdutoComponent() {
+    const params = useParams();
+
+    return (
+        <PersistirProduto params={params}/>
+    );
 }

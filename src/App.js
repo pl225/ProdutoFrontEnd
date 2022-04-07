@@ -6,8 +6,16 @@ import { PersistirProdutoComponent } from "./components/persistir-produto/Persis
 function App() {
   return (
     <Routes>
-      <Route element={<ListaProdutoComponent/>} path="/" exact />
-      <Route element={<PersistirProdutoComponent/>} path="/persistir" />
+      <Route element={<ListaProdutoComponent />} path="/" exact />
+      <Route element={<PersistirProdutoComponent />} path="/persistir">
+        <Route element={<PersistirProdutoComponent/>} path=":produtoId"/>
+      </Route>
+      <Route
+        path="*"
+        element={
+          <p>Página não encontrada.</p>
+        }
+      />
     </Routes>
   );
 }
