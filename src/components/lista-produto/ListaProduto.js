@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ProdutoController } from '../../controllers/produto.controller';
+import './ListaProduto.css';
 
 export class ListaProdutoComponent extends React.Component {
 
@@ -52,14 +53,14 @@ export class ListaProdutoComponent extends React.Component {
 
         if (items) {
             return (
-                <div>
-                    <div>
+                <div className='centro'>
+                    <div className='titulo'>
                         <p>Produtos</p>
                         <Link to={"persistir"}>
                             <button>Cadastrar produto</button>
                         </Link>
                     </div>
-                    <table>
+                    <table className='tabela'>
                         <thead>
                             <tr>
                                 <th>Nome</th>
@@ -82,8 +83,6 @@ export class ListaProdutoComponent extends React.Component {
                                                 <Link to={`persistir/${i.id}`}>
                                                     <button>Editar</button>
                                                 </Link>
-                                            </td>
-                                            <td>
                                                 <button onClick={() => this.excluir(i.id, i.nome)}>Excluir</button>
                                             </td>
                                         </tr>
