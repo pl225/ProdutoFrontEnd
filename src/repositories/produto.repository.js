@@ -12,5 +12,15 @@ export class ProdutoRepository {
             throw new Error(err.message);
         }
     }
+    
+    async criar(dados) {
+        try {
+            const response = await axios
+                .post(`${URL}produtos`, dados);
+            return response.data;
+        } catch (err) {
+            throw new Error(err.message);
+        }
+    }
 
 }

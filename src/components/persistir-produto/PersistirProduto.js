@@ -42,9 +42,13 @@ export class PersistirProdutoComponent extends React.Component {
             });
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
-        console.log(event)
+        try {
+            this.produtoController.criar(this.state.form);
+        } catch (err) {
+            alert(err);
+        }
     }
 
     handleChange(event, nomeInput) {
