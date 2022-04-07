@@ -14,7 +14,7 @@ export class ProdutoController {
             throw new Error('Preencha o campo nome do produto.');
         if (!dados.codigo || dados.codigo.length === 0) 
             throw new Error('Preencha o campo código do produto.');
-        if (!dados.valor || isNaN(dados.valor)) 
+        if (!dados.valor || isNaN(dados.valor.replaceAll(',', '.'))) 
             throw new Error('Preencha o campo valor do produto com um número válido');
         if (!dados.categoria || dados.categoria <= 0)
             throw new Error('Selecione uma categoria para o produto.');
@@ -22,7 +22,10 @@ export class ProdutoController {
 
     async criar(dados) {
         this.validarCriacaoEdicao(dados);
-        return await this.produtoRepository.criar(dados);
+        return await this.produtoRepository.criar({
+            ...dados,
+            valor: dados.valor.replaceAll(',', '.')
+        });
     }
 
     async excluir(id) {
@@ -35,6 +38,9 @@ export class ProdutoController {
 
     async editar(id, dados) {
         this.validarCriacaoEdicao(dados);
-        return await this.produtoRepository.editar(id, dados);
+        return await this.produtoRepository.editar(id, {
+            ...dados,
+            valor: dados.valor.replaceAll(',', '.')
+        });
     }
 }
