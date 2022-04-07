@@ -1,6 +1,8 @@
 import React from 'react';
 import { ProdutoRepository } from '../../repositories/produto.repository';
 import { CategoriaRepository } from '../../repositories/categoria.repository';
+import { TextoInput } from '../texto-input/TextoInput';
+import { NumeroInput } from '../numero-input/NumeroInput';
 
 export class PersistirProdutoComponent extends React.Component {
 
@@ -9,12 +11,17 @@ export class PersistirProdutoComponent extends React.Component {
         this.state = {
             error: null,
             isLoaded: false,
-            items: []
+            categorias: [],
+            form: {
+                nome: '',
+                codigo: '',
+                valor: 0,
+                categoria: 0
+            }
         };
 
         this.produtoRepository = new ProdutoRepository();
         this.categoriaRepository = new CategoriaRepository();
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -23,7 +30,7 @@ export class PersistirProdutoComponent extends React.Component {
             .then(res => {
                 this.setState({
                     isLoaded: true,
-                    items: res
+                    categorias: res
                 });
             })
             .catch(err => {
@@ -38,38 +45,49 @@ export class PersistirProdutoComponent extends React.Component {
         event.preventDefault();
     }
 
-    render() {
-        const { error, isLoaded, items } = this.state;
+    handleChange(event, nomeInput) {
+        this.setState({ 
+            form: { 
+                [nomeInput]: event.target.value 
+            } 
+        });
+    }
 
-        if (items) {
+    render() {
+        const { error, isLoaded, categorias } = this.state;
+
+        if (categorias) {
             return (
-                <fotm onSubmit={this.handleSubmit}>
-                    <label>
-                        Nome:
-                        <input type="text" value={this.state.nome} onChange={this.handleChange} />
-                    </label>
-                    <label>
-                        Codigo:
-                        <input type="text" value={this.state.codigo} onChange={this.handleChange} />
-                    </label>
-                    <label>
-                        Valor (R$):
-                        <input type="text" value={this.state.valor} onChange={this.handleChange} />
-                    </label>
+                <form onSubmit={(event) => this.handleSubmit(event)}>
+                    <TextoInput 
+                        label={'Nome'} 
+                        value={this.state.form.nome} 
+                        onChange={(event) => this.handleChange(event, 'nome')} 
+                    />
+                    <TextoInput 
+                        label={'Código'} 
+                        value={this.state.form.codigo} 
+                        onChange={(event) => this.handleChange(event, 'codigo')}
+                    />
+                    <NumeroInput
+                        label={'Valor (R$)'}
+                        value={this.state.form.valor}
+                        onChange={(event) => this.handleChange(event, 'valor')}
+                    />
                     <label>
                         Escolha a categoria:
                         <select value={this.state.categoria} onChange={this.handleChange}>
                             {
-                                items.map(i => {
+                                categorias.map(i => {
                                     return (
-                                        <option value={i.id}>{i.nome}</option>
+                                        <option key={i.id} value={i.id}>{i.nome}</option>
                                     );
                                 })
                             }
                         </select>
                     </label>
                     <input type="submit" value="Enviar" />
-                </fotm>
+                </form>
             );
         } else if (!isLoaded) {
             return <div>Carregando...</div>

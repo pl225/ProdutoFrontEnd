@@ -1,5 +1,6 @@
 import React from 'react';
 import { ProdutoRepository } from '../../repositories/produto.repository';
+import { Link } from 'react-router-dom';
 
 export class ListaProdutoComponent extends React.Component {
 
@@ -39,7 +40,9 @@ export class ListaProdutoComponent extends React.Component {
                 <div>
                     <div>
                         <p>Produtos</p>
-                        <button>Cadastrar produto</button>
+                        <Link to={"persistir"}>
+                            <button>Cadastrar produto</button>
+                        </Link>
                     </div>
                     <table>
                         <thead>
