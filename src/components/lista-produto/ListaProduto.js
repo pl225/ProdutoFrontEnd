@@ -54,7 +54,7 @@ export class ListaProdutoComponent extends React.Component {
                             { 
                                 items.map(i => {
                                     return (
-                                        <tr>
+                                        <tr key={i.id}>
                                             <td>{i.nome}</td>
                                             <td>{i.codigo}</td>
                                             <td>{i.valor}</td>
