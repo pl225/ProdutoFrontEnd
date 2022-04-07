@@ -9,7 +9,7 @@ export class ProdutoController {
         return this.produtoRepository.findAll();
     }
 
-    async criar(dados) {
+    validarCriacaoEdicao(dados) {
         if (!dados.nome || dados.nome.length === 0) 
             throw new Error('Preencha o campo nome do produto.');
         if (!dados.codigo || dados.codigo.length === 0) 
@@ -18,11 +18,23 @@ export class ProdutoController {
             throw new Error('Preencha o campo valor do produto com um número válido');
         if (!dados.categoria || dados.categoria <= 0)
             throw new Error('Selecione uma categoria para o produto.');
+    }
 
+    async criar(dados) {
+        this.validarCriacao(dados);
         return await this.produtoRepository.criar(dados);
     }
 
     async excluir(id) {
         await this.produtoRepository.excluir(id);
+    }
+
+    async findById(id) {
+        return await this.produtoRepository.findById(id);
+    }
+
+    async editar(id, dados) {
+        this.validarCriacaoEdicao(dados);
+        return await this.produtoRepository.editar(id, dados);
     }
 }
