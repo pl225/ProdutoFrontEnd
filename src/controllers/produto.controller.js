@@ -21,7 +21,7 @@ export class ProdutoController {
     }
 
     async criar(dados) {
-        this.validarCriacao(dados);
+        this.validarCriacaoEdicao(dados);
         return await this.produtoRepository.criar(dados);
     }
 
