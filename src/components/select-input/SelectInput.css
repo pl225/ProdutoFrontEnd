@@ -1,0 +1,9 @@
+.item {
+	flex-wrap: nowrap;
+	display: flex;
+	margin: 10px;
+}
+
+.margem {
+	margin-left: 10px;
+}

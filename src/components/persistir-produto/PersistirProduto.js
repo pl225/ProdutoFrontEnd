@@ -5,6 +5,7 @@ import { SelectInput } from '../select-input/SelectInput';
 import { CategoriaController } from '../../controllers/categoria.controller';
 import { ProdutoController } from '../../controllers/produto.controller';
 import { useParams } from 'react-router-dom';
+import './PersistirProduto.css';
 
 class PersistirProduto extends React.Component {
 
@@ -24,7 +25,7 @@ class PersistirProduto extends React.Component {
 
         this.produtoController = new ProdutoController();
         this.categoriaController = new CategoriaController();
-        this.id = this.props.params? this.props.params.produtoId : null;
+        this.id = this.props.params ? this.props.params.produtoId : null;
     }
 
     async componentDidMount() {
@@ -54,7 +55,7 @@ class PersistirProduto extends React.Component {
             } else {
                 await this.produtoController.editar(this.id, this.state.form);
             }
-            alert(`Produto ${this.id ? 'editado': 'cadastrado'} com sucesso.`);
+            alert(`Produto ${this.id ? 'editado' : 'cadastrado'} com sucesso.`);
             window.location = '/';
         } catch (err) {
             alert(err);
@@ -72,30 +73,33 @@ class PersistirProduto extends React.Component {
 
         if (categorias) {
             return (
-                <form onSubmit={(event) => this.handleSubmit(event)}>
-                    <TextoInput 
-                        label={'Nome'} 
-                        value={this.state.form.nome} 
-                        onChange={(event) => this.handleChange(event, 'nome')} 
-                    />
-                    <TextoInput 
-                        label={'Código'} 
-                        value={this.state.form.codigo} 
-                        onChange={(event) => this.handleChange(event, 'codigo')}
-                    />
-                    <NumeroInput
-                        label={'Valor (R$)'}
-                        value={this.state.form.valor}
-                        onChange={(event) => this.handleChange(event, 'valor')}
-                    />
-                    <SelectInput
-                        label={'a categoria'}
-                        value={this.state.form.categoria}
-                        items={this.state.categorias}
-                        onChange={(event) => this.handleChange(event, 'categoria')}
-                    />
-                    <input type="submit" value="Enviar" />
-                </form>
+                <div className='container'>
+                    <h1>Cadastrar produto</h1>
+                    <form onSubmit={(event) => this.handleSubmit(event)} className="alinhar">
+                        <TextoInput
+                            label={'Nome'}
+                            value={this.state.form.nome}
+                            onChange={(event) => this.handleChange(event, 'nome')}
+                        />
+                        <TextoInput
+                            label={'Código'}
+                            value={this.state.form.codigo}
+                            onChange={(event) => this.handleChange(event, 'codigo')}
+                        />
+                        <NumeroInput
+                            label={'Valor (R$)'}
+                            value={this.state.form.valor}
+                            onChange={(event) => this.handleChange(event, 'valor')}
+                        />
+                        <SelectInput
+                            label={'a categoria'}
+                            value={this.state.form.categoria}
+                            items={this.state.categorias}
+                            onChange={(event) => this.handleChange(event, 'categoria')}
+                        />
+                        <input type="submit" value="Enviar" />
+                    </form>
+                </div>
             );
         } else if (!isLoaded) {
             return <div>Carregando...</div>
@@ -110,6 +114,6 @@ export function PersistirProdutoComponent() {
     const params = useParams();
 
     return (
-        <PersistirProduto params={params}/>
+        <PersistirProduto params={params} />
     );
 }

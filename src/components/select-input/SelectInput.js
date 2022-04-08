@@ -4,9 +4,9 @@ export class SelectInput extends React.Component {
 
     render() {
         return (
-            <label>
+            <label className='item'>
                 Escolha {this.props.label}:
-                <select value={this.props.value} onChange={(event) => this.props.onChange(event)}>
+                <select value={this.props.value} onChange={(event) => this.props.onChange(event)} className="margem">
                     <option key={0} value="0">Selecione {this.props.label}</option>
                     {
                         this.props.items.map(i => {

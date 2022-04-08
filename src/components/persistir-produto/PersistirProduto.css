@@ -1,0 +1,8 @@
+.alinhar {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    padding: 10px;
+}

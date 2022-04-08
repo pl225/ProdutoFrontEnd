@@ -1,4 +1,5 @@
 import React from 'react';
+import './NumeroInput.css';
 
 export class NumeroInput extends React.Component {
 
@@ -16,7 +17,7 @@ export class NumeroInput extends React.Component {
 
     render() {
         return (
-            <label>
+            <label className='item'>
                 {this.props.label}:
                 <input 
                     type="text" 
