@@ -28,6 +28,10 @@ class PersistirProduto extends React.Component {
         this.id = this.props.params ? this.props.params.produtoId : null;
     }
 
+    voltar() {
+        window.location = '/';
+    }
+
     async componentDidMount() {
         try {
             const [categorias, produto] = await Promise.all([
@@ -40,10 +44,8 @@ class PersistirProduto extends React.Component {
                 form: produto ? produto : this.state.form
             });
         } catch (err) {
-            this.setState({
-                isLoaded: true,
-                error: err
-            });
+            alert(err.message);
+            this.voltar();
         }
     }
 
@@ -56,7 +58,7 @@ class PersistirProduto extends React.Component {
                 await this.produtoController.editar(this.id, this.state.form);
             }
             alert(`Produto ${this.id ? 'editado' : 'cadastrado'} com sucesso.`);
-            window.location = '/';
+            this.voltar();
         } catch (err) {
             alert(err);
         }
@@ -98,7 +100,7 @@ class PersistirProduto extends React.Component {
                             onChange={(event) => this.handleChange(event, 'categoria')}
                         />
                         <div className='linha'>
-                            <button onClick={() => window.location = '/'}>Voltar</button>
+                            <button onClick={() => this.voltar()}>Voltar</button>
                             <input type="submit" value="Enviar" />
                         </div>
                     </form>

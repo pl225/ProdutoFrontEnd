@@ -69,7 +69,7 @@ export class ListaProdutoComponent extends React.Component {
                             <tr>
                                 <th>Nome</th>
                                 <th>Código</th>
-                                <th>Valor</th>
+                                <th>Valor (R$)</th>
                                 <th>Categoria</th>
                                 <th>Ações</th>
                             </tr>
@@ -81,7 +81,7 @@ export class ListaProdutoComponent extends React.Component {
                                         <tr key={i.id}>
                                             <td>{i.nome}</td>
                                             <td>{i.codigo}</td>
-                                            <td>{i.valor.toLocaleString('pt-BR', { maximumFractionDigits: 2 })}</td>
+                                            <td>{i.valor.toLocaleString('pt-BR', { maximumFractionDigits: 2, minimumFractionDigits: 2 })}</td>
                                             <td>{i.categoria.nome}</td>
                                             <td>
                                                 <div className='centro-horizontal'>

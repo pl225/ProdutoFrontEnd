@@ -7,7 +7,15 @@ export class ProdutoRepository {
         try {
             return await promise;
         } catch (err) {
-            throw new Error(err.message);
+            if (err.response && err.response.data && 'message' in err.response.data) {
+                const message = err.response.data.message;
+                if (typeof message === 'string')
+                    throw new Error(message);
+                else
+                    throw new Error(message.join());
+            } else {
+                throw new Error(err.toString());
+            }
         }
     }
 
