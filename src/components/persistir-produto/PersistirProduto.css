@@ -1,8 +1,15 @@
 .alinhar {
     display: flex;
     flex-direction: column;
+    width: fit-content;
 }
 
 .container {
     padding: 10px;
+}
+
+.linha {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 10px 0px 10px;
 }

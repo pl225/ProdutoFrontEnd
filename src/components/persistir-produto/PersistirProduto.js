@@ -97,7 +97,10 @@ class PersistirProduto extends React.Component {
                             items={this.state.categorias}
                             onChange={(event) => this.handleChange(event, 'categoria')}
                         />
-                        <input type="submit" value="Enviar" />
+                        <div className='linha'>
+                            <button onClick={() => window.location = '/'}>Voltar</button>
+                            <input type="submit" value="Enviar" />
+                        </div>
                     </form>
                 </div>
             );
