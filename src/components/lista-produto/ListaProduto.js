@@ -18,6 +18,10 @@ export class ListaProdutoComponent extends React.Component {
 
     async carregarProdutos() {
         try {
+            this.setState({
+                isLoaded: false,
+                items: null
+            });
             const produtos = await this.controller.findAll();
             this.setState({
                 isLoaded: true,
@@ -77,7 +81,7 @@ export class ListaProdutoComponent extends React.Component {
                                         <tr key={i.id}>
                                             <td>{i.nome}</td>
                                             <td>{i.codigo}</td>
-                                            <td>{i.valor}</td>
+                                            <td>{i.valor.toLocaleString('pt-BR', { maximumFractionDigits: 2 })}</td>
                                             <td>{i.categoria.nome}</td>
                                             <td>
                                                 <div className='centro-horizontal'>
