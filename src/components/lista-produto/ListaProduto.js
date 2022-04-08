@@ -32,7 +32,7 @@ export class ListaProdutoComponent extends React.Component {
     }
 
     componentDidMount() {
-       this.carregarProdutos();
+        this.carregarProdutos();
     }
 
     async excluir(id, nome) {
@@ -55,9 +55,9 @@ export class ListaProdutoComponent extends React.Component {
             return (
                 <div className='centro'>
                     <div className='titulo'>
-                        <p>Produtos</p>
-                        <Link to={"persistir"}>
-                            <button>Cadastrar produto</button>
+                        <h1>Produtos</h1>
+                        <Link to={"persistir"} className="margem">
+                            <button className="btn"><i className="fa fa-plus"></i></button>
                         </Link>
                     </div>
                     <table className='tabela'>
@@ -71,7 +71,7 @@ export class ListaProdutoComponent extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            { 
+                            {
                                 items.map(i => {
                                     return (
                                         <tr key={i.id}>
@@ -80,14 +80,19 @@ export class ListaProdutoComponent extends React.Component {
                                             <td>{i.valor}</td>
                                             <td>{i.categoria.nome}</td>
                                             <td>
-                                                <Link to={`persistir/${i.id}`}>
-                                                    <button>Editar</button>
-                                                </Link>
-                                                <button onClick={() => this.excluir(i.id, i.nome)}>Excluir</button>
+                                                <div className='centro-horizontal'>
+                                                    <Link to={`persistir/${i.id}`} className="margem-interna">
+                                                        <button className="btn"><i className="fa fa-edit"></i></button>
+                                                    </Link>
+                                                    <button
+                                                        onClick={() => this.excluir(i.id, i.nome)}
+                                                        className="btn margem-interna"
+                                                    ><i className="fa fa-trash"></i></button>
+                                                </div>
                                             </td>
                                         </tr>
                                     );
-                                }) 
+                                })
                             }
                         </tbody>
                     </table>

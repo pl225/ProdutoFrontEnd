@@ -6,7 +6,6 @@
 
 .titulo {
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
@@ -30,4 +29,33 @@ table th {
     text-align: left;
     background-color: #04AA6D;
     color: white;
+}
+
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: RoyalBlue;
+}
+
+.margem {
+    margin-left: 20px;
+}
+
+.centro-horizontal {
+    display: flex;
+    flex-wrap: nowrap;   
+    justify-content: center;
+}
+
+.margem-interna {
+    margin: 1px;
 }
